@@ -1,0 +1,65 @@
+from csv import reader as csvreader
+import os.path as path
+from os import listdir
+import util.source_reader
+from gensim import utils
+
+from string import punctuation
+
+# Mbaca berkas yang perlu untuk proses filter
+filter = {}
+filter_folder_path = path.join(path.dirname(__file__), "filter")
+
+for file in listdir(filter_folder_path):
+    with open(path.join(filter_folder_path, file), "r", errors="ignore") as content:
+        name = path.splitext(file)[0]
+        parsed_content = list(csvreader(content))[1:]
+        filter[name] = []
+
+        for row in parsed_content:
+            if len(row) == 1:
+                filter[name].append(row[0])
+            else:
+                filter[name].append(row)
+
+filter["stop-words"] = tuple(filter["stop-words"])
+
+
+def remove_punctuation(sentence: str):
+    return sentence.translate(str.maketrans("", "", punctuation))
+
+
+def remove_unnecessary_words(sentence: str):
+    ret = []
+    for word in sentence.split():
+        if word not in filter["stop-words"]:
+            ret.append(word)
+    
+    return " ".join(utils.simple_preprocess(" ".join(ret), deacc=True))
+
+
+def remove_tag(sentence: str):
+    ret = []
+    for word in sentence.split():
+        if word.startswith(punctuation) or (word.startswith("<") and word.endswith(">")):
+            continue
+        ret.append(word)
+    
+    return " ".join(ret)
+
+
+def sanitize(sentence: str):
+    sentence = sentence.lower()
+    sentence = remove_tag(sentence)
+    sentence = remove_punctuation(sentence)
+    sentence = remove_unnecessary_words(sentence)
+
+    return sentence
+
+
+def sanitize_banyak(sentences: list):
+    ret = []
+    for sentence in sentences:
+        ret.append(sanitize(sentence))
+    
+    return ret

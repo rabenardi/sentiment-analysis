@@ -1,0 +1,102 @@
+import csv
+import os.path as path
+from os import listdir
+from itertools import chain
+
+source_name = "sumber"
+source_path = path.abspath(source_name) # hati-hati
+# neg_folder_name = "neg"
+# pos_folder_name = "pos"
+
+main = "Text"
+pivot_category = "Sentiment"
+pos_category = "positive"
+neg_category = "negative"
+delimit = ","
+
+"""
+Berkas ini dibuat untuk memudahkan pembacaan folder sumber, yakni folder yang berisi sumber percontoh/sampel
+"""
+
+def baca_csv(file_path: str):
+    """
+    Mengambil semua data berkolom [main] dalam berkas csv
+    """
+    ret = []
+    
+    with open(file_path, "r", errors="ignore") as file:
+        data = list(csv.reader(file, delimiter=delimit))
+        main_index = data[0].index(main)
+        for row in data[1:]:
+            ret.append(row[main_index])
+    
+    return ret
+
+
+def baca_berkas_dalam_folder_di_sumber(name: str):
+    """
+    Mengambil semua berkas csv dalam folder [name] secara non-rekursif (tingkat kedalaman 1)
+    """
+
+    ret = []
+    folder_path = path.join(source_path, name)
+    folder_dir = listdir(folder_path)
+
+    for file in folder_dir:
+        file_path = path.join(folder_path, file)
+        if not path.isfile(file_path):
+            continue
+        tmp = baca_csv(path.join(folder_path, file))
+        ret.append(tmp)
+
+    return ret
+
+
+def baca_csv_dengan_kategori(file_path: str):
+    """
+    Mengambil semua data berkolom [main] dalam berkas csv dan memberinya kategori
+    """
+    ret = {}
+    
+    with open(file_path, "r", errors="ignore") as file:
+        data = list(csv.reader(file, delimiter=delimit))
+        main_index = data[0].index(main)
+        pivot_category_index = data[0].index(pivot_category)
+        for row in data[1:]:
+            if row[pivot_category_index] not in ret:
+                ret[row[pivot_category_index]] = []
+                continue
+            ret[row[pivot_category_index]].append(row[main_index])
+    
+    return ret
+
+
+def baca_csv2_dengan_kategori(name: str = ""):
+    """
+    Mengambil semua berkas csv dalam folder [name] secara non-rekursif (tingkat kedalaman 1)
+    """
+
+    ret = []
+    folder_path = path.join(source_path, name)
+    folder_dir = listdir(folder_path)
+
+    for file in folder_dir:
+        file_path = path.join(folder_path, file)
+        if not path.isfile(file_path):
+            continue
+        tmp = baca_csv_dengan_kategori(file_path)
+        ret.append(tmp)
+
+    return ret
+
+try:
+    # pengambilan hard-coded
+    source = baca_csv2_dengan_kategori()
+    neg_source = list(map(lambda x: x[neg_category], source))
+    pos_source = list(map(lambda x: x[pos_category], source))
+
+    # pemerataan array agar tidak bersarang
+    neg_source = list(chain(*neg_source))
+    pos_source = list(chain(*pos_source))
+except KeyError:
+    raise Exception("neg_category atau pos_category tidak sesuai")

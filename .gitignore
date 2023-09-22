@@ -1,0 +1,8 @@
+# Model hasil pelatihan
+best.model
+
+# File penyetelan
+.env
+
+# Folder cache-nya python
+__pycache__/
