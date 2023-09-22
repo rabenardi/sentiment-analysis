@@ -19,12 +19,12 @@ samples["source"].map(1, Sanitizer.sanitize)
 other_samples = []
 
 if len(other_samples) > 1:
-    for path in paths:
-        tmp = Source(name="Dummy", the_path=path)
+    for sample in other_samples:
+        tmp = Source(name="Dummy", the_path=sample.path)
         tmp.fetch()
         tmp.normalize(
-            sentiment_col=samples["sentiment_col"], 
-            text_col=samples["text_col"]
+            sentiment_col=sample["sentiment_col"], 
+            text_col=sample["text_col"]
         )
 
         samples["source"].join(tmp)

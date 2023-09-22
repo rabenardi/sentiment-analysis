@@ -1,7 +1,7 @@
 import pandas as pd
 from os import path, listdir, getcwd
 from itertools import chain
-from numpy import array as np_array
+from numpy import array as np_array, concatenate as np_concat
 
 from typing import Callable
 
@@ -25,6 +25,7 @@ class Source():
         self.debug = debug
         self.use_log = log
         self._has_fetched_once = False
+        self._sentimental = False
 
 
     def _log(self, msg):
@@ -108,6 +109,7 @@ class Source():
         self._log(f"Menghapus {self.cumulative_len-len(self.dataframes[1])} entri dalam proses normalisasi")
 
         self.cumulative_len = len(self.dataframes[1])
+        self._sentimental = True
 
         return True
 
@@ -124,3 +126,11 @@ class Source():
         
         self.dataframes[index] = self.dataframes[index].map(f_class)
         return True
+
+    
+    def join_for_sentimental_analysis(self, source):
+        if not source._sentimental:
+            raise Exception("Source.join_for_sentimental_analysis: Bukan source sentimental!")
+        
+        self.dataframes[0] = np_concat((self.dataframes[0], source.dataframes[0]))
+        self.dataframes[1] = pd.concat(self.dataframes[1], source.dataframes[1])
