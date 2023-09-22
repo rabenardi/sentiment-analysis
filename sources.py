@@ -5,7 +5,7 @@ from os import path
 samples = {
     "source": Source(
         name="Samples Main",
-        the_path=path.join(path.dirname(__file__), "sample"),
+        the_path=path.join(path.dirname(__file__), "samples"),
         log=False #Berisik cak
     ),
     "sentiment_col": "Sentiment",
