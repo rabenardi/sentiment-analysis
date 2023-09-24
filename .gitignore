@@ -6,3 +6,6 @@ best.model
 
 # Folder cache-nya python
 __pycache__/
+
+# Folder sementara sampel
+samples.scrap/
