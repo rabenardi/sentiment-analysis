@@ -19,7 +19,7 @@ Lalu, install paket yang dibutuhkan dengan menjalankan
 pip3 install -r requirements.txt
 ```
 
-Sebelum bisa dipakai, buat berkas enviroment dengan notepad (atau penyunting teks lainnya), lalu tambahkan nilai berikut (awas, besar-kecilnya huruf diperhatikan)
+Sebelum bisa dipakai, buat berkas enviroment (berkas `.env`) dengan notepad (atau penyunting teks lainnya), lalu tambahkan nilai berikut (awas, besar-kecilnya huruf diperhatikan)
 ```
 MAX_VOCAB=
 MAX_LEN=
@@ -27,17 +27,17 @@ EPOCHS=
 LAYERS_DENSE=
 BATCH_SIZE=
 ```
-atau bisa lihat berkas `.env.shared` utnuk refrensi.
+atau bisa lihat berkas `.env.shared` untuk refrensi.
 
 ---
 ### Melatih model
-Jika kalian ingin melatih modelnya dari awal, kalian bisa jalankan
+Jika ingin melatih modelnya dari awal, bisa jalankan
 ```
 python train.py
 ```
 untuk melatih model dengan sampel bawaan.
 
-Jika kalian ingin menambahkan sampel lain, pastikan (1) berupa csv, (2) kalian tau lokasi sampelnya di mana (_path_-nya) dan (3) apa kolom sentimen dan teksnya. Misal ada sampel dengan kolom
+Jika ingin menambahkan sampel lain, pastikan (1) berupa csv, (2) mengetahui lokasi sampelnya di mana (_path_-nya) dan (3) apa kolom sentimen dan teksnya. Misal ada sampel dengan kolom
 ```
 ,full_text,date,polarity,subjectivity,analysis
 0,manfaat penuh eh udah kasih admin fee yaudah fokus cimb niaga on account fasilitas on par substitusi,Thu Nov 12 17:27:57 +0000 2020,0.425,0.525,positive
