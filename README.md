@@ -70,7 +70,7 @@ Pertama, unggah repo ini ke drivemu (di-_clone_ lalu diunggah). Lalu buka `noteb
 ### FAQs
 >  Adakah cara untuk meningkatkan akurasi model?
 
-Ya, akurasinya bisa ditingkatkan dengan melakukan _hyperparameter tuning_. Singkatnya, mengutak-atik parameter yang diberikan dalam pengaturan model. Untuk kemudahan, kalian bisa melakukan _hyperparameter tuning_ dengan bereksperimen dengan niali yang ada dalam `.env`.
+Ya, akurasinya bisa ditingkatkan dengan melakukan _hyperparameter tuning_. Singkatnya, mengutak-atik parameter yang diberikan dalam pengaturan model. Untuk kemudahan, kalian bisa melakukan _hyperparameter tuning_ dengan bereksperimen dengan nilai yang ada dalam `.env`.
 
 ![contoh](./assets/hyperparameter%20tuning%20example.png)
 
