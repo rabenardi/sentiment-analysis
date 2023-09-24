@@ -2,3 +2,5 @@ tensorflow~=2.13.0
 pandas~=2.1.1
 scikit-learn~=1.3
 python-dotenv~=1.0.0
+gensim~=4.3.2
+notebook~=7.0.4
