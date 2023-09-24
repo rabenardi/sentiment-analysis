@@ -12,7 +12,6 @@ best_model = load_model(BEST_MODEL_PATH)
 
 # mengambil daftar nilai sentimen untuk indexing
 sentiment = samples["source"].sentiment_values
-print(sentiment)
 
 MAX_VOCAB = int(getenv("MAX_VOCAB"))
 MAX_LEN = int(getenv("MAX_LEN"))
@@ -22,9 +21,4 @@ def predict_sentiment(sentence: str):
     tokenizer.fit_on_texts(samples["source"].dataframes[1])
     sequence = tokenizer.texts_to_sequences([sentence])
     test = pad_sequences(sequence, maxlen=MAX_LEN)
-    return np.around(best_model.predict(test), decimals=0).argmax(axis=1)[0]
-
-print(predict_sentiment('this experience has been the worst , want my money back'))
-print(predict_sentiment('this data science article is the best ever'))
-print(predict_sentiment('i hate youtube ads, they are annoying'))
-print(predict_sentiment('i really loved how the technician helped me with the issue that i had'))
+    return sentiment[np.around(best_model.predict(test), decimals=0).argmax(axis=1)[0]]
