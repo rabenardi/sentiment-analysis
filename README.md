@@ -72,6 +72,10 @@ Pertama, unggah repo ini ke drivemu (di-_clone_ lalu diunggah). Lalu buka `noteb
 
 Ya, akurasinya bisa ditingkatkan dengan melakukan _hyperparameter tuning_. Singkatnya, mengutak-atik parameter yang diberikan dalam pengaturan model. Untuk kemudahan, kalian bisa melakukan _hyperparameter tuning_ dengan bereksperimen dengan niali yang ada dalam `.env`.
 
+![contoh](./assets/hyperparameter%20tuning%20example.png)
+
+Dengan pengaturan pada `.env.shared`, saya berhasil mendapatkan akurasi sebesar 94% dengan sampel bawaan. Namun, sebenarnya, semua itu bergantung pada sampel (utamanya distribusinya).
+
 > Saya ingin langsung mencoba memprediksi kalimat. Adakah model yang sudah terlatih?
 
 Ada. Download modelnya di [sini](https://drive.google.com/file/d/1Q1kEFc6xTFs2pnI713i2Gx96JzOInIZa/view?usp=drive_link), lalu pindah ke folder root repo yang telah ada clone ini.
